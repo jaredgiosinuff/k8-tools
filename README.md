@@ -68,9 +68,28 @@ python scale_k8s_deployments.py --kubeconfig ~/.kube/config --namespace my-names
 python scale_k8s_deployments.py --kubeconfig ~/.kube/config --namespace my-namespace --scale-up --restore
 ```
 
+## Files Created
+
+### Log File
+
+- **File Name**: `namespace-restart-<namespace>.log`
+- **Description**: This file contains log entries for all operations performed by the script. It includes timestamps and messages for successful actions, errors, and simulation results if the `--dry-run` option is used.
+- **Importance**: The log file is crucial for debugging and auditing purposes. It helps track what operations were performed, including any issues encountered during execution.
+
+### Backup File
+
+- **File Name**: `original_replicas_<namespace>.json`
+- **Description**: This file stores the original replica counts of deployments before they are scaled down. It is created when the `--backup` option is specified.
+- **Importance**: The backup file is essential for restoring deployments to their original state after a scale-down operation. Without this file, the script cannot accurately scale deployments back up to their initial replica counts.
+
 ## Logging
 
-Logs are written to a file named `namespace-restart-<namespace>.log` in the current directory.
+Logs are written to a file named `namespace-restart-<namespace>.log` in the current directory. This file records detailed information about the script's execution, including:
+
+- Scaling operations performed (both up and down).
+- Any errors encountered while interacting with the Kubernetes API.
+- Confirmation prompts and user responses.
+- Backup and restoration activities.
 
 ## License
 
